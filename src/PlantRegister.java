@@ -1,4 +1,4 @@
-import java.io.FileNotFoundException;
+
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -39,22 +39,14 @@ public class PlantRegister {
     public void sortByDateOfWatering(){
         this.plantRegister.sort(Comparator.comparing(Plant::getDateOfWatering));
     }
-    /*public String toString(){
-        StringBuilder plants = new StringBuilder();
-        plantRegister.stream().forEach(plant -> plants.append(plant+ " ,"));
-        return plants.toString();
-    }*/
+
     public void addPlantsFromFile(String fileName){
         try (Scanner scanner = new Scanner(Paths.get(fileName))){
             while(scanner.hasNextLine()){
-                String dateFormat = "([20]{2}[0-9]{2})"+
-                        "([-]{1})"+
-                        "([0]{1}[1-9]{1}|[1]{1}[0-2]{1}|[1-9]{1})"+
-                        "([-]{1})"+
-                        "([1-9]{1}|[0]{1}[1-9]{1}|[1]{1}[0-9]{1}|[2]{1}[0-9]{1}|[3]{1}[0-1]{1})";
+                DateFormat dateFormat = DateFormat.YYYYMMDD;
                 String row = scanner.nextLine();
                 String[] parts = row.split("\t");
-                if(!parts[3].matches(dateFormat)|| !parts[4].matches(dateFormat)){
+                if(!parts[3].matches(dateFormat.getDateFormat())|| !parts[4].matches(dateFormat.getDateFormat())){
                     throw new PlantException("The date must be entered in format: yyyy-MM-dd, youve entered: "+ parts[3]);
                 }
                 if(!parts[2].matches("[0-9]+")){
@@ -69,7 +61,7 @@ public class PlantRegister {
     }
     public void writePlantsToFile(String filename) {
         try(PrintWriter writer = new PrintWriter(filename)) {
-            plantRegister.stream().forEach(plant -> writer.println(plant));
+            plantRegister.forEach(plant -> writer.println(plant));
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }

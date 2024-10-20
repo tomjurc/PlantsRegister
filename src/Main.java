@@ -1,8 +1,8 @@
-import java.nio.file.Paths;
+
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Scanner;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -16,7 +16,6 @@ public class Main {
         }
         addTenTulips(register);
         register.remove(register.plantAtIndex(2));
-        //System.out.println(register.getPlantRegister());
         register.writePlantsToFile("kvetiny.Write.txt");
         register1.addPlantsFromFile("kvetiny.Write.txt");
         register1.getPlantRegister().forEach(Plant-> System.out.println(Plant));
