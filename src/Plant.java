@@ -9,7 +9,7 @@ public class Plant implements Comparable<Plant>{
 
     public Plant(String name, String notes, LocalDate dateOfPlanting, LocalDate dateOfWatering, int frequencyOfWatering)throws PlantException{
         if(frequencyOfWatering<=0){
-            throw new PlantException("Frequence of watering must be bigger than 0, you entered: " + frequencyOfWatering);
+            throw new PlantException("Frequency of watering must be bigger than 0, you entered: " + frequencyOfWatering);
         }
         if(dateOfPlanting.isAfter(dateOfWatering)){
             throw new PlantException("Date of watering cant be before date of planting.");
@@ -54,9 +54,12 @@ public class Plant implements Comparable<Plant>{
     public int getFrequencyOfWatering() {
         return frequencyOfWatering;
     }
+    public String toFileString(String delimiter){
+        return this.name + delimiter + this.notes + delimiter + this.frequencyOfWatering + delimiter + this.dateOfWatering + delimiter + this.dateOfPlanting;
+    }
     @Override
     public String toString(){
-        return this.name +"\t" + this.notes + "\t" + this.frequencyOfWatering + "\t" + this.dateOfWatering + "\t" + this.dateOfPlanting;
+        return this.name + ", " + this.notes + ", " + this.frequencyOfWatering + ", " + this.dateOfWatering + ", " + this.dateOfPlanting + ".";
     }
     @Override
     public int compareTo(Plant otherPlant){

@@ -5,10 +5,12 @@ import java.util.Comparator;
 
 
 public class Main {
+    private static final String DELIMITER = "\t";
+
     public static void main(String[] args) {
         PlantRegister register = new PlantRegister();
         PlantRegister register1 = new PlantRegister();
-        register.addPlantsFromFile("kvetiny.txt");
+        register.addPlantsFromFile("kvetiny.txt",DELIMITER);
         try {
             register.addPlant(new Plant("Rose", "is prickly", LocalDate.of(2024, 10, 10), LocalDate.now(), 7));
         }catch (PlantException e){
@@ -16,8 +18,8 @@ public class Main {
         }
         addTenTulips(register);
         register.remove(register.plantAtIndex(2));
-        register.writePlantsToFile("kvetiny.Write.txt");
-        register1.addPlantsFromFile("kvetiny.Write.txt");
+        register.writePlantsToFile("kvetinyWrite.txt",DELIMITER);
+        register1.addPlantsFromFile("kvetinyWrite.txt",DELIMITER);
         register1.getPlantRegister().forEach(Plant-> System.out.println(Plant));
         System.out.println();
         register.getPlantRegister().sort(Comparator.comparing(Plant::getDateOfPlanting));
@@ -25,6 +27,9 @@ public class Main {
         System.out.println();
         Collections.sort(register1.getPlantRegister());
         register1.getPlantRegister().forEach(Plant-> System.out.println(Plant));
+        System.out.println();
+        register1.toBeWatered().forEach(Plant -> System.out.println(Plant));
+
 
 
     }
